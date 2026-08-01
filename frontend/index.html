@@ -2,335 +2,751 @@
 <html lang="ha">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
 <title>Rafiq — Abokin Hankalinka</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4C1D95">
+<meta name="theme-color" content="#2563EB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0B1220;
-    --panel:#131B2E;
-    --panel-2:#1B2540;
-    --gold:#D4A017;
-    --teal:#2FBF9F;
-    --text:#F5F1E6;
-    --muted:#8B93A7;
-    --danger:#E5484D;
+    --bg1:#0f0c29;
+    --bg2:#1a1a4d;
+    --bg3:#0f172a;
+    --panel:rgba(255,255,255,0.05);
+    --panel-solid:#171338;
+    --accent1:#7C3AED;
+    --accent2:#2563EB;
+    --text:#F1F0FF;
+    --muted:#9CA3D4;
+    --danger:#F87171;
+    --success:#34D399;
+    --border: rgba(255,255,255,0.08);
   }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%; margin:0;}
   body{
-    margin:0;
-    background:var(--bg);
+    background: linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
     color:var(--text);
     font-family:'Inter',sans-serif;
-    display:flex;
-    flex-direction:column;
     overflow:hidden;
-  }
-  .pattern-bar{
-    height:6px;
-    width:100%;
-    background: repeating-linear-gradient(
-      45deg,
-      var(--gold) 0px, var(--gold) 6px,
-      transparent 6px, transparent 12px
-    );
-    opacity:0.9;
-  }
-  header{
-    padding:16px 18px 14px;
-    background:var(--panel);
-    border-bottom:1px solid rgba(212,160,23,0.15);
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  .avatar{
-    width:42px;height:42px;border-radius:50%;
-    background:radial-gradient(circle at 30% 30%, var(--gold), #8a6a10);
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Cairo',sans-serif;font-weight:800;color:#0B1220;font-size:18px;
-    flex-shrink:0;
-  }
-  .title{display:flex;flex-direction:column;}
-  .title h1{
-    font-family:'Cairo',sans-serif;
-    font-size:19px;
-    margin:0;
-    font-weight:700;
-    letter-spacing:0.3px;
-  }
-  .title span{font-size:12.5px;color:var(--muted);}
-  .status-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;margin-left:6px;box-shadow:0 0 6px var(--teal);}
-  #chat{
-    flex:1;
-    overflow-y:auto;
-    padding:18px 14px 8px;
     display:flex;
     flex-direction:column;
-    gap:12px;
   }
+  .grad-btn{
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border:none;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .grad-text{
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  ::-webkit-scrollbar{width:5px;}
+  ::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.4);border-radius:10px;}
+
+  /* ---------- SPLASH ---------- */
+  #splash{
+    position:fixed; inset:0; z-index:100;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background: linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    gap:18px;
+  }
+  #splash .logo{
+    width:88px; height:88px; border-radius:26px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cairo',sans-serif; font-size:42px; font-weight:800; color:white;
+    box-shadow:0 10px 40px rgba(124,58,237,0.5);
+    animation: pulseLogo 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseLogo{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+  #splash h1{font-family:'Cairo',sans-serif; font-size:26px; margin:0;}
+  #splash span{color:var(--muted); font-size:13px;}
+
+  /* ---------- AUTH ---------- */
+  #auth{
+    display:none;
+    flex:1; overflow-y:auto;
+    padding:32px 22px;
+    flex-direction:column;
+  }
+  .auth-logo{
+    width:64px; height:64px; border-radius:20px; margin:0 auto 14px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cairo',sans-serif; font-size:30px; font-weight:800; color:white;
+  }
+  .auth-title{text-align:center; font-family:'Cairo',sans-serif; font-size:24px; font-weight:700; margin-bottom:4px;}
+  .auth-sub{text-align:center; color:var(--muted); font-size:13.5px; margin-bottom:28px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12.5px; color:var(--muted); margin-bottom:6px;}
+  .field input{
+    width:100%; padding:13px 15px; border-radius:14px;
+    background: var(--panel); border:1px solid var(--border);
+    color:var(--text); font-size:15px; outline:none;
+  }
+  .field input:focus{border-color:var(--accent1);}
+  .btn-primary{
+    width:100%; padding:14px; border-radius:14px; font-size:15.5px; margin-top:6px;
+  }
+  .btn-primary:active{transform:scale(0.98);}
+  .switch-mode{text-align:center; margin-top:20px; font-size:14px; color:var(--muted);}
+  .switch-mode a{color:var(--accent1); font-weight:600; text-decoration:none;}
+  .auth-error{
+    background:rgba(248,113,113,0.12); border:1px solid rgba(248,113,113,0.35);
+    color:var(--danger); font-size:13px; padding:10px 14px; border-radius:12px; margin-bottom:14px;
+    display:none;
+  }
+  .auth-success{
+    background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.35);
+    color:var(--success); font-size:13px; padding:10px 14px; border-radius:12px; margin-bottom:14px;
+    display:none;
+  }
+  .interests-title{font-size:13.5px; color:var(--muted); margin:8px 0 12px;}
+  .interests-grid{display:flex; flex-direction:column; gap:10px; margin-bottom:20px;}
+  .interest-chip{
+    display:flex; align-items:center; gap:10px;
+    padding:13px 15px; border-radius:14px;
+    background:var(--panel); border:1px solid var(--border);
+    cursor:pointer; font-size:14.5px;
+  }
+  .interest-chip.selected{
+    border-color:var(--accent1);
+    background:rgba(124,58,237,0.15);
+  }
+  .interest-chip .dot{width:9px;height:9px;border-radius:50%; border:2px solid var(--muted); flex-shrink:0;}
+  .interest-chip.selected .dot{background:var(--accent1); border-color:var(--accent1);}
+
+  /* ---------- APP LAYOUT ---------- */
+  #app{display:none; flex:1; overflow:hidden; position:relative;}
+  #sidebar{
+    position:fixed; top:0; bottom:0; left:0; width:78%; max-width:300px;
+    background:var(--panel-solid); border-right:1px solid var(--border);
+    transform:translateX(-100%); transition:transform 0.25s ease;
+    z-index:50; display:flex; flex-direction:column;
+    padding-top:env(safe-area-inset-top);
+  }
+  #sidebar.open{transform:translateX(0);}
+  #sidebarOverlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:40;
+    display:none;
+  }
+  #sidebarOverlay.show{display:block;}
+  .sidebar-header{padding:16px; display:flex; align-items:center; justify-content:space-between;}
+  .sidebar-header .brand{display:flex; align-items:center; gap:10px; font-family:'Cairo',sans-serif; font-weight:700;}
+  .sidebar-header .brand .logo-mini{
+    width:32px;height:32px;border-radius:9px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display:flex;align-items:center;justify-content:center; font-family:'Cairo',sans-serif; color:white; font-weight:800;
+  }
+  #newChatBtn{
+    margin:0 16px 14px; padding:12px; border-radius:14px; font-size:14.5px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  #chatList{flex:1; overflow-y:auto; padding:0 10px;}
+  .chat-item{
+    padding:12px 12px; border-radius:12px; font-size:14px; color:var(--text);
+    display:flex; justify-content:space-between; align-items:center; gap:8px;
+    cursor:pointer; margin-bottom:4px;
+  }
+  .chat-item:active, .chat-item.active{background:rgba(124,58,237,0.18);}
+  .chat-item .title{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;}
+  .chat-item .del{color:var(--muted); font-size:16px; flex-shrink:0;}
+  .sidebar-footer{
+    border-top:1px solid var(--border); padding:14px 16px;
+    display:flex; align-items:center; gap:10px; cursor:pointer;
+  }
+  .avatar-circle{
+    width:38px;height:38px;border-radius:50%;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display:flex;align-items:center;justify-content:center; font-weight:700; flex-shrink:0;
+  }
+  .sidebar-footer .info{overflow:hidden;}
+  .sidebar-footer .name{font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .sidebar-footer .email{font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+  #main{display:flex; flex-direction:column; height:100%;}
+  header#topbar{
+    padding:14px 14px calc(12px); display:flex; align-items:center; gap:12px;
+    border-bottom:1px solid var(--border);
+    padding-top:calc(14px + env(safe-area-inset-top));
+  }
+  #menuBtn{background:none;border:none;color:var(--text);font-size:22px;padding:4px 8px;cursor:pointer;}
+  #topbar .title{font-family:'Cairo',sans-serif; font-weight:700; font-size:16px;}
+
+  #chat{flex:1; overflow-y:auto; padding:16px 14px 8px; display:flex; flex-direction:column; gap:12px;}
   .msg{
-    max-width:82%;
-    padding:11px 14px;
-    border-radius:16px;
-    line-height:1.45;
-    font-size:15px;
-    white-space:pre-wrap;
-    animation:fadeIn 0.25s ease;
+    max-width:82%; padding:12px 15px; border-radius:18px; font-size:15px; line-height:1.45;
+    white-space:pre-wrap; animation:fadeIn 0.25s ease;
   }
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-  .msg.user{
-    align-self:flex-end;
-    background:var(--teal);
-    color:#04231C;
-    border-bottom-right-radius:4px;
-  }
-  .msg.bot{
-    align-self:flex-start;
-    background:var(--panel-2);
-    border-bottom-left-radius:4px;
-  }
-  .msg.error{
-    align-self:center;
-    background:rgba(229,72,77,0.15);
-    color:#ff9a9d;
-    font-size:13.5px;
-    border:1px solid rgba(229,72,77,0.35);
-  }
-  .typing{
-    align-self:flex-start;
-    display:flex;gap:4px;padding:12px 16px;
-    background:var(--panel-2);border-radius:16px;
-  }
-  .typing span{
-    width:6px;height:6px;border-radius:50%;background:var(--muted);
-    animation:blink 1.2s infinite ease-in-out;
-  }
+  .msg.user{align-self:flex-end; background: linear-gradient(135deg, var(--accent1), var(--accent2)); color:white; border-bottom-right-radius:5px;}
+  .msg.bot{align-self:flex-start; background:var(--panel); border:1px solid var(--border); border-bottom-left-radius:5px;}
+  .msg.error{align-self:center; background:rgba(248,113,113,0.12); color:var(--danger); font-size:13.5px; border:1px solid rgba(248,113,113,0.3);}
+  .msg img.attach{max-width:100%; border-radius:12px; margin-top:8px; display:block;}
+  .typing{align-self:flex-start; display:flex; gap:4px; padding:13px 17px; background:var(--panel); border:1px solid var(--border); border-radius:18px;}
+  .typing span{width:6px;height:6px;border-radius:50%;background:var(--muted); animation:blink 1.2s infinite ease-in-out;}
   .typing span:nth-child(2){animation-delay:0.2s;}
   .typing span:nth-child(3){animation-delay:0.4s;}
   @keyframes blink{0%,80%,100%{opacity:0.3;}40%{opacity:1;}}
-  .hint{
-    font-size:11.5px;
-    color:var(--muted);
-    text-align:center;
-    padding:2px 24px 8px;
-  }
+
   form#inputBar{
-    display:flex;
-    align-items:flex-end;
-    gap:8px;
+    display:flex; align-items:flex-end; gap:8px;
     padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-    background:var(--panel);
-    border-top:1px solid rgba(212,160,23,0.15);
+    border-top:1px solid var(--border);
   }
   textarea#userInput{
-    flex:1;
-    resize:none;
-    max-height:110px;
-    min-height:42px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,0.08);
-    background:var(--panel-2);
-    color:var(--text);
-    padding:11px 16px;
-    font-size:15px;
-    font-family:inherit;
-    outline:none;
+    flex:1; resize:none; max-height:110px; min-height:44px; border-radius:20px;
+    border:1px solid var(--border); background:var(--panel); color:var(--text);
+    padding:12px 16px; font-size:15px; font-family:inherit; outline:none;
   }
-  textarea#userInput:focus{border-color:var(--gold);}
+  textarea#userInput:focus{border-color:var(--accent1);}
   button.icon-btn{
-    width:44px;height:44px;
-    border-radius:50%;
-    border:none;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-    flex-shrink:0;
-    transition:transform 0.15s ease, background 0.15s ease;
+    width:44px;height:44px;border-radius:50%;border:none;
+    display:flex;align-items:center;justify-content:center; cursor:pointer; flex-shrink:0;
   }
-  button.icon-btn:active{transform:scale(0.92);}
-  #sendBtn{background:var(--gold);color:#0B1220;}
-  #micBtn{background:var(--panel-2);color:var(--text);border:1px solid rgba(255,255,255,0.1);}
-  #micBtn.listening{
-    background:var(--danger);
-    color:#fff;
-    animation:pulse 1.2s infinite;
+  #sendBtn{background: linear-gradient(135deg, var(--accent1), var(--accent2)); color:white;}
+  #micBtn, #fileBtn{background:var(--panel); color:var(--text); border:1px solid var(--border);}
+  #micBtn.listening{background:var(--danger); color:white;}
+  .filePreview{
+    display:none; align-items:center; gap:8px; padding:8px 12px; margin:0 12px 8px;
+    background:var(--panel); border:1px solid var(--border); border-radius:14px; font-size:13px;
   }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(229,72,77,0.5);}
-    70%{box-shadow:0 0 0 12px rgba(229,72,77,0);}
-    100%{box-shadow:0 0 0 0 rgba(229,72,77,0);}
+  .filePreview .remove{margin-left:auto; color:var(--danger); cursor:pointer; font-weight:700;}
+
+  /* ---------- PROFILE PANEL ---------- */
+  #profilePanel{
+    position:fixed; inset:0; z-index:60; background:var(--bg3);
+    display:none; flex-direction:column; padding-top:env(safe-area-inset-top);
   }
-  select#voiceLang{
-    background:var(--panel-2);
-    color:var(--muted);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:12px;
-    font-size:12px;
-    padding:4px 6px;
-    flex-shrink:0;
+  #profilePanel .p-header{padding:16px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--border);}
+  #profilePanel .p-header button{background:none;border:none;color:var(--text);font-size:20px;}
+  #profilePanel .p-body{padding:24px 20px; text-align:center;}
+  .p-avatar{
+    width:84px;height:84px;border-radius:50%; margin:0 auto 14px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:800; color:white;
   }
-  ::-webkit-scrollbar{width:5px;}
-  ::-webkit-scrollbar-thumb{background:rgba(212,160,23,0.3);border-radius:10px;}
+  .p-name{font-size:19px; font-weight:700; font-family:'Cairo',sans-serif;}
+  .p-email{color:var(--muted); font-size:13.5px; margin-top:4px;}
+  .p-interests{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0;}
+  .p-interest-tag{
+    background:var(--panel); border:1px solid var(--border); border-radius:20px;
+    padding:7px 14px; font-size:12.5px; color:var(--muted);
+  }
+  #logoutBtn{
+    margin-top:20px; width:100%; padding:14px; border-radius:14px; font-size:15px;
+    background:rgba(248,113,113,0.12); color:var(--danger); border:1px solid rgba(248,113,113,0.3);
+  }
 </style>
 </head>
 <body>
 
-<div class="pattern-bar"></div>
-
-<header>
-  <div class="avatar">ر</div>
-  <div class="title">
-    <h1>Rafiq <span class="status-dot"></span></h1>
-    <span>Abokin hankalinka na AI • Hausa · English · العربية</span>
-  </div>
-</header>
-
-<div id="chat">
-  <div class="msg bot">Assalamu Alaikum! 👋 Ni ne Rafiq, abokin hankalinka na AI. Zan iya taimaka maka da tambayoyi, karatu, ko wani abu da kake bukata — a Hausa, Turanci, ko Larabci. Yaya zan iya taimaka maka yau?</div>
+<div id="splash">
+  <div class="logo">ر</div>
+  <h1 class="grad-text">Rafiq</h1>
+  <span>Abokin hankalinka na AI</span>
 </div>
 
-<div class="hint" id="hint"></div>
+<div id="auth">
+  <div id="loginView">
+    <div class="auth-logo">ر</div>
+    <h2 class="auth-title">Barka da zuwa</h2>
+    <p class="auth-sub">Shiga domin ka ci gaba da Rafiq</p>
+    <div class="auth-error" id="loginError"></div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="kai@example.com" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" />
+    </div>
+    <button class="grad-btn btn-primary" id="loginBtn">Shiga</button>
+    <div class="switch-mode">Ba ka da account? <a id="goRegister">Yi Register</a></div>
+  </div>
 
-<form id="inputBar">
-  <select id="voiceLang" title="Harshen murya">
-    <option value="ha-NG">🎙️ HA</option>
-    <option value="en-US">🎙️ EN</option>
-    <option value="ar-SA">🎙️ AR</option>
-  </select>
-  <button type="button" id="micBtn" class="icon-btn" title="Yi magana">🎤</button>
-  <textarea id="userInput" rows="1" placeholder="Rubuta saƙo… (ko danna 🎤 don magana)"></textarea>
-  <button type="submit" id="sendBtn" class="icon-btn" title="Aika">➤</button>
-</form>
+  <div id="registerView" style="display:none;">
+    <div class="auth-logo">ر</div>
+    <h2 class="auth-title">Ƙirƙiri Account</h2>
+    <p class="auth-sub">Bari mu san ka kaɗan</p>
+    <div class="auth-error" id="registerError"></div>
+    <div class="auth-success" id="registerSuccess"></div>
+    <div class="field">
+      <label>Cikakken Suna</label>
+      <input type="text" id="regName" placeholder="Sunanka" />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="regEmail" placeholder="kai@example.com" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="regPassword" placeholder="Aƙalla haruffa 6" />
+    </div>
+    <p class="interests-title">Menene babban dalilin amfaninka da Rafiq? (zaɓi ɗaya ko fiye)</p>
+    <div class="interests-grid" id="interestsGrid">
+      <div class="interest-chip" data-value="addini_dawa"><span class="dot"></span> Addini &amp; Da'awa</div>
+      <div class="interest-chip" data-value="ilimi"><span class="dot"></span> Neman Ilimi</div>
+      <div class="interest-chip" data-value="coding"><span class="dot"></span> Coding &amp; Fasaha</div>
+      <div class="interest-chip" data-value="kasuwanci"><span class="dot"></span> Kasuwanci</div>
+      <div class="interest-chip" data-value="projects"><span class="dot"></span> Ayyuka / Projects</div>
+    </div>
+    <button class="grad-btn btn-primary" id="registerBtn">Yi Register</button>
+    <div class="switch-mode">Ka riga ka da account? <a id="goLogin">Shiga</a></div>
+  </div>
+</div>
+
+<div id="sidebarOverlay"></div>
+<div id="sidebar">
+  <div class="sidebar-header">
+    <div class="brand"><div class="logo-mini">ر</div> Rafiq</div>
+  </div>
+  <button class="grad-btn" id="newChatBtn">+ Sabon Tattaunawa</button>
+  <div id="chatList"></div>
+  <div class="sidebar-footer" id="openProfileBtn">
+    <div class="avatar-circle" id="sidebarAvatar">?</div>
+    <div class="info">
+      <div class="name" id="sidebarName">Mai amfani</div>
+      <div class="email" id="sidebarEmail">...</div>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <div id="main">
+    <header id="topbar">
+      <button id="menuBtn">☰</button>
+      <div class="title">Rafiq</div>
+    </header>
+    <div id="chat"></div>
+    <div class="filePreview" id="filePreview">
+      <span id="filePreviewName"></span>
+      <span class="remove" id="removeFile">✕</span>
+    </div>
+    <form id="inputBar">
+      <button type="button" id="fileBtn" class="icon-btn">📎</button>
+      <button type="button" id="micBtn" class="icon-btn">🎤</button>
+      <textarea id="userInput" rows="1" placeholder="Rubuta saƙo…"></textarea>
+      <button type="submit" id="sendBtn" class="icon-btn">➤</button>
+    </form>
+    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" style="display:none;" />
+  </div>
+</div>
+
+<div id="profilePanel">
+  <div class="p-header">
+    <button id="closeProfile">←</button>
+    <strong>Profile</strong>
+  </div>
+  <div class="p-body">
+    <div class="p-avatar" id="profileAvatar">?</div>
+    <div class="p-name" id="profileName">...</div>
+    <div class="p-email" id="profileEmail">...</div>
+    <div class="p-interests" id="profileInterests"></div>
+    <button id="logoutBtn">Fita (Logout)</button>
+  </div>
+</div>
 
 <script>
-  const BACKEND_URL = "https://rafiq-ai-rmgu.onrender.com/api/chat";
+  // ⚠️ Change this after each backend redeploy if the URL changes
+  const BACKEND_URL = "https://rafiq-ai-rmgu.onrender.com";
 
-  const chat = document.getElementById("chat");
-  const form = document.getElementById("inputBar");
-  const input = document.getElementById("userInput");
-  const micBtn = document.getElementById("micBtn");
-  const voiceLang = document.getElementById("voiceLang");
-  const hint = document.getElementById("hint");
+  let accessToken = localStorage.getItem("rafiq_token") || null;
+  let currentUser = JSON.parse(localStorage.getItem("rafiq_user") || "null");
+  let currentChatId = null;
+  let selectedInterests = [];
+  let pendingFile = null; // { name, type, base64 }
 
-  let history = [];
+  const el = (id) => document.getElementById(id);
 
-  input.addEventListener("input", () => {
-    input.style.height = "auto";
-    input.style.height = Math.min(input.scrollHeight, 110) + "px";
+  // ---------- SPLASH ----------
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      el("splash").style.display = "none";
+      if (accessToken && currentUser) {
+        showApp();
+      } else {
+        el("auth").style.display = "flex";
+      }
+    }, 900);
   });
 
-  function addMessage(text, role) {
+  // ---------- AUTH VIEW SWITCHING ----------
+  el("goRegister").addEventListener("click", () => {
+    el("loginView").style.display = "none";
+    el("registerView").style.display = "block";
+  });
+  el("goLogin").addEventListener("click", () => {
+    el("registerView").style.display = "none";
+    el("loginView").style.display = "block";
+  });
+
+  // ---------- INTEREST CHIPS ----------
+  document.querySelectorAll(".interest-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const val = chip.dataset.value;
+      if (selectedInterests.includes(val)) {
+        selectedInterests = selectedInterests.filter((v) => v !== val);
+        chip.classList.remove("selected");
+      } else {
+        selectedInterests.push(val);
+        chip.classList.add("selected");
+      }
+    });
+  });
+
+  // ---------- REGISTER ----------
+  el("registerBtn").addEventListener("click", async () => {
+    const full_name = el("regName").value.trim();
+    const email = el("regEmail").value.trim();
+    const password = el("regPassword").value;
+    const errBox = el("registerError");
+    const okBox = el("registerSuccess");
+    errBox.style.display = "none";
+    okBox.style.display = "none";
+
+    if (!email || !password) {
+      errBox.textContent = "Ana buƙatar email da password.";
+      errBox.style.display = "block";
+      return;
+    }
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, full_name, interests: selectedInterests }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errBox.textContent = data.error || "An kasa yin register.";
+        errBox.style.display = "block";
+        return;
+      }
+      okBox.textContent = data.message || "An yi register! Duba email don tabbatarwa, sannan a shiga.";
+      okBox.style.display = "block";
+      setTimeout(() => {
+        el("registerView").style.display = "none";
+        el("loginView").style.display = "block";
+        el("loginEmail").value = email;
+      }, 1800);
+    } catch (err) {
+      errBox.textContent = "An kasa haɗawa da uwar garke.";
+      errBox.style.display = "block";
+    }
+  });
+
+  // ---------- LOGIN ----------
+  el("loginBtn").addEventListener("click", async () => {
+    const email = el("loginEmail").value.trim();
+    const password = el("loginPassword").value;
+    const errBox = el("loginError");
+    errBox.style.display = "none";
+
+    if (!email || !password) {
+      errBox.textContent = "Ana buƙatar email da password.";
+      errBox.style.display = "block";
+      return;
+    }
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errBox.textContent = data.error || "An kasa shiga.";
+        errBox.style.display = "block";
+        return;
+      }
+      accessToken = data.access_token;
+      currentUser = data.user;
+      localStorage.setItem("rafiq_token", accessToken);
+      localStorage.setItem("rafiq_user", JSON.stringify(currentUser));
+      el("auth").style.display = "none";
+      showApp();
+    } catch (err) {
+      errBox.textContent = "An kasa haɗawa da uwar garke.";
+      errBox.style.display = "block";
+    }
+  });
+
+  // ---------- LOGOUT ----------
+  el("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("rafiq_token");
+    localStorage.removeItem("rafiq_user");
+    location.reload();
+  });
+</script>
+<script>
+  // ---------- SHOW APP (after login) ----------
+  function showApp() {
+    el("app").style.display = "flex";
+    const initial = (currentUser.user_metadata?.full_name || currentUser.email || "?")[0].toUpperCase();
+    el("sidebarAvatar").textContent = initial;
+    el("sidebarName").textContent = currentUser.user_metadata?.full_name || "Mai amfani";
+    el("sidebarEmail").textContent = currentUser.email;
+    loadChatList();
+    startNewChat(false);
+  }
+
+  function authHeaders() {
+    return { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` };
+  }
+
+  // ---------- SIDEBAR TOGGLE ----------
+  el("menuBtn").addEventListener("click", () => {
+    el("sidebar").classList.add("open");
+    el("sidebarOverlay").classList.add("show");
+  });
+  el("sidebarOverlay").addEventListener("click", () => {
+    el("sidebar").classList.remove("open");
+    el("sidebarOverlay").classList.remove("show");
+  });
+  function closeSidebar() {
+    el("sidebar").classList.remove("open");
+    el("sidebarOverlay").classList.remove("show");
+  }
+
+  // ---------- PROFILE PANEL ----------
+  const interestLabels = {
+    addini_dawa: "Addini & Da'awa",
+    ilimi: "Neman Ilimi",
+    coding: "Coding & Fasaha",
+    kasuwanci: "Kasuwanci",
+    projects: "Ayyuka / Projects",
+  };
+  el("openProfileBtn").addEventListener("click", async () => {
+    closeSidebar();
+    const initial = (currentUser.user_metadata?.full_name || currentUser.email || "?")[0].toUpperCase();
+    el("profileAvatar").textContent = initial;
+    el("profileName").textContent = currentUser.user_metadata?.full_name || "Mai amfani";
+    el("profileEmail").textContent = currentUser.email;
+    el("profileInterests").innerHTML = (currentUser.interest_areas || [])
+      .map((v) => `<span class="p-interest-tag">${interestLabels[v] || v}</span>`)
+      .join("") || "<span class='p-interest-tag'>Babu zaɓi tukuna</span>";
+    el("profilePanel").style.display = "flex";
+  });
+  el("closeProfile").addEventListener("click", () => {
+    el("profilePanel").style.display = "none";
+  });
+
+  // ---------- CHAT LIST (HISTORY) ----------
+  async function loadChatList() {
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/chats`, { headers: authHeaders() });
+      const data = await res.json();
+      const list = el("chatList");
+      list.innerHTML = "";
+      (data.chats || []).forEach((chat) => {
+        const item = document.createElement("div");
+        item.className = "chat-item" + (chat.id === currentChatId ? " active" : "");
+        item.innerHTML = `<span class="title">${chat.title || "Tattaunawa"}</span><span class="del">✕</span>`;
+        item.querySelector(".title").addEventListener("click", () => openChat(chat.id));
+        item.querySelector(".del").addEventListener("click", async (e) => {
+          e.stopPropagation();
+          await fetch(`${BACKEND_URL}/api/chats/${chat.id}`, { method: "DELETE", headers: authHeaders() });
+          if (chat.id === currentChatId) startNewChat(false);
+          loadChatList();
+        });
+        list.appendChild(item);
+      });
+    } catch (err) {
+      console.error("Failed to load chats:", err);
+    }
+  }
+
+  async function openChat(chatId) {
+    currentChatId = chatId;
+    closeSidebar();
+    el("chat").innerHTML = "";
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/chats/${chatId}/messages`, { headers: authHeaders() });
+      const data = await res.json();
+      (data.messages || []).forEach((m) => addMessage(m.content, m.role === "assistant" ? "bot" : "user", m.file_url));
+    } catch (err) {
+      console.error(err);
+    }
+    loadChatList();
+  }
+
+  function startNewChat(reload = true) {
+    currentChatId = null;
+    closeSidebar();
+    el("chat").innerHTML = `<div class="msg bot">Assalamu Alaikum${currentUser?.user_metadata?.full_name ? ", " + currentUser.user_metadata.full_name : ""}! 👋 Ni ne Rafiq. Yaya zan iya taimaka maka yau?</div>`;
+    if (reload) loadChatList();
+  }
+  el("newChatBtn").addEventListener("click", () => startNewChat());
+
+  // ---------- MESSAGE RENDERING ----------
+  function addMessage(text, role, fileUrl) {
     const div = document.createElement("div");
     div.className = "msg " + role;
     div.textContent = text;
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
-    return div;
+    if (fileUrl) {
+      const img = document.createElement("img");
+      img.src = fileUrl;
+      img.className = "attach";
+      div.appendChild(img);
+    }
+    el("chat").appendChild(div);
+    el("chat").scrollTop = el("chat").scrollHeight;
   }
-
   function showTyping() {
     const div = document.createElement("div");
     div.className = "typing";
     div.id = "typingIndicator";
     div.innerHTML = "<span></span><span></span><span></span>";
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
+    el("chat").appendChild(div);
+    el("chat").scrollTop = el("chat").scrollHeight;
   }
   function hideTyping() {
-    const el = document.getElementById("typingIndicator");
-    if (el) el.remove();
+    const t = el("typingIndicator");
+    if (t) t.remove();
   }
-
+</script>
+<script>
+  // ---------- SEND MESSAGE ----------
   async function sendMessage(text) {
-    if (!text.trim()) return;
-    addMessage(text, "user");
-    history.push({ role: "user", content: text });
-    input.value = "";
-    input.style.height = "auto";
+    if (!text.trim() && !pendingFile) return;
+
+    if (text.trim()) addMessage(text, "user");
+    if (pendingFile) {
+      const div = document.createElement("div");
+      div.className = "msg user";
+      div.textContent = text.trim() || "[Fayil]";
+      if (pendingFile.type.startsWith("image/")) {
+        const img = document.createElement("img");
+        img.src = `data:${pendingFile.type};base64,${pendingFile.base64}`;
+        img.className = "attach";
+        div.appendChild(img);
+      }
+      el("chat").appendChild(div);
+      el("chat").scrollTop = el("chat").scrollHeight;
+    }
+
+    el("userInput").value = "";
+    el("userInput").style.height = "auto";
     showTyping();
 
+    let fileUrl = null;
+    let fileType = null;
+
     try {
-      const res = await fetch(BACKEND_URL, {
+      if (pendingFile) {
+        const upRes = await fetch(`${BACKEND_URL}/api/upload`, {
+          method: "POST",
+          headers: authHeaders(),
+          body: JSON.stringify({
+            fileName: pendingFile.name,
+            fileType: pendingFile.type,
+            fileDataBase64: pendingFile.base64,
+          }),
+        });
+        const upData = await upRes.json();
+        if (upRes.ok) {
+          fileUrl = upData.url;
+          fileType = pendingFile.type;
+        }
+        pendingFile = null;
+        el("filePreview").style.display = "none";
+      }
+
+      const res = await fetch(`${BACKEND_URL}/api/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        headers: authHeaders(),
+        body: JSON.stringify({
+          chat_id: currentChatId,
+          message: text,
+          fileUrl,
+          fileType,
+        }),
       });
       const data = await res.json();
       hideTyping();
 
-      if (!res.ok || !data.reply) {
-        addMessage(data.error || "An kasa samun amsa. A duba haɗin intanet ko a sake gwadawa.", "error");
+      if (!res.ok) {
+        addMessage(data.error || "An kasa samun amsa.", "error");
         return;
       }
+      currentChatId = data.chat_id;
       addMessage(data.reply, "bot");
-      history.push({ role: "assistant", content: data.reply });
+      loadChatList();
     } catch (err) {
       hideTyping();
-      addMessage("An kasa haɗawa da uwar garke. A duba haɗin intanet.", "error");
+      addMessage("An kasa haɗawa da uwar garke. A duba intanet.", "error");
     }
   }
 
-  form.addEventListener("submit", (e) => {
+  el("inputBar").addEventListener("submit", (e) => {
     e.preventDefault();
-    sendMessage(input.value);
+    sendMessage(el("userInput").value);
   });
-
-  input.addEventListener("keydown", (e) => {
+  el("userInput").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      sendMessage(input.value);
+      sendMessage(el("userInput").value);
     }
   });
+  el("userInput").addEventListener("input", () => {
+    el("userInput").style.height = "auto";
+    el("userInput").style.height = Math.min(el("userInput").scrollHeight, 110) + "px";
+  });
 
+  // ---------- FILE UPLOAD ----------
+  el("fileBtn").addEventListener("click", () => el("fileInput").click());
+  el("fileInput").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result.split(",")[1];
+      pendingFile = { name: file.name, type: file.type, base64 };
+      el("filePreviewName").textContent = "📎 " + file.name;
+      el("filePreview").style.display = "flex";
+    };
+    reader.readAsDataURL(file);
+  });
+  el("removeFile").addEventListener("click", () => {
+    pendingFile = null;
+    el("filePreview").style.display = "none";
+    el("fileInput").value = "";
+  });
+
+  // ---------- VOICE INPUT ----------
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let recognizer = null;
   let listening = false;
-
   if (SpeechRecognition) {
     recognizer = new SpeechRecognition();
     recognizer.continuous = false;
     recognizer.interimResults = false;
-
-    recognizer.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      input.value = transcript;
+    recognizer.lang = "en-US";
+    recognizer.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      el("userInput").value = transcript;
       sendMessage(transcript);
     };
-    recognizer.onend = () => {
-      listening = false;
-      micBtn.classList.remove("listening");
-    };
-    recognizer.onerror = () => {
-      listening = false;
-      micBtn.classList.remove("listening");
-    };
+    recognizer.onend = () => { listening = false; el("micBtn").classList.remove("listening"); };
+    recognizer.onerror = () => { listening = false; el("micBtn").classList.remove("listening"); };
   }
-
-  micBtn.addEventListener("click", () => {
-    const lang = voiceLang.value;
-
-    if (lang === "ha-NG" || !recognizer) {
-      hint.textContent = "💡 Don Hausa: danna sararin rubutu sannan ka yi amfani da alamar makirifo (🎤) da ke kan keyboard ɗin wayarka (Gboard) — yana iya jin Hausa kai tsaye.";
-      input.focus();
-      return;
-    }
-
-    if (listening) {
-      recognizer.stop();
-      return;
-    }
-
-    hint.textContent = "";
-    recognizer.lang = lang;
+  el("micBtn").addEventListener("click", () => {
+    if (!recognizer) { el("userInput").focus(); return; }
+    if (listening) { recognizer.stop(); return; }
     recognizer.start();
     listening = true;
-    micBtn.classList.add("listening");
+    el("micBtn").classList.add("listening");
   });
+
+  if ("serviceWorker" in navigator) { navigator.serviceWorker.register("sw.js"); }
 </script>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js");}</script>
 </body>
 </html>
