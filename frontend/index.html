@@ -253,14 +253,14 @@
 <div id="splash">
   <div class="logo">ر</div>
   <h1 class="grad-text">Rafiq</h1>
-  <span>Abokin hankalinka na AI</span>
+  <span>Your AI Companion</span>
 </div>
 
 <div id="auth">
   <div id="loginView">
     <div class="auth-logo">ر</div>
-    <h2 class="auth-title">Barka da zuwa</h2>
-    <p class="auth-sub">Shiga domin ka ci gaba da Rafiq</p>
+    <h2 class="auth-title">Welcome Back</h2>
+    <p class="auth-sub">Sign in to continue with Rafiq</p>
     <div class="auth-error" id="loginError"></div>
     <div class="field">
       <label>Email</label>
@@ -270,19 +270,19 @@
       <label>Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••" />
     </div>
-    <button class="grad-btn btn-primary" id="loginBtn">Shiga</button>
-    <div class="switch-mode">Ba ka da account? <a id="goRegister">Yi Register</a></div>
+    <button class="grad-btn btn-primary" id="loginBtn">Sign In</button>
+    <div class="switch-mode">Don't have an account? <a id="goRegister">Sign Up</a></div>
   </div>
 
   <div id="registerView" style="display:none;">
     <div class="auth-logo">ر</div>
-    <h2 class="auth-title">Ƙirƙiri Account</h2>
-    <p class="auth-sub">Bari mu san ka kaɗan</p>
+    <h2 class="auth-title">Create Account</h2>
+    <p class="auth-sub">Let's get to know you</p>
     <div class="auth-error" id="registerError"></div>
     <div class="auth-success" id="registerSuccess"></div>
     <div class="field">
-      <label>Cikakken Suna</label>
-      <input type="text" id="regName" placeholder="Sunanka" />
+      <label>Full Name</label>
+      <input type="text" id="regName" placeholder="Your name" />
     </div>
     <div class="field">
       <label>Email</label>
@@ -290,18 +290,18 @@
     </div>
     <div class="field">
       <label>Password</label>
-      <input type="password" id="regPassword" placeholder="Aƙalla haruffa 6" />
+      <input type="password" id="regPassword" placeholder="At least 6 characters" />
     </div>
-    <p class="interests-title">Menene babban dalilin amfaninka da Rafiq? (zaɓi ɗaya ko fiye)</p>
+    <p class="interests-title">What's your main reason for using Rafiq? (select one or more)</p>
     <div class="interests-grid" id="interestsGrid">
-      <div class="interest-chip" data-value="addini_dawa"><span class="dot"></span> Addini &amp; Da'awa</div>
-      <div class="interest-chip" data-value="ilimi"><span class="dot"></span> Neman Ilimi</div>
-      <div class="interest-chip" data-value="coding"><span class="dot"></span> Coding &amp; Fasaha</div>
+      <div class="interest-chip" data-value="addini_dawa"><span class="dot"></span> Faith & Da'wah</div>
+      <div class="interest-chip" data-value="ilimi"><span class="dot"></span> Learning & Education</div>
+      <div class="interest-chip" data-value="coding"><span class="dot"></span> Coding & Tech</div>
       <div class="interest-chip" data-value="kasuwanci"><span class="dot"></span> Kasuwanci</div>
-      <div class="interest-chip" data-value="projects"><span class="dot"></span> Ayyuka / Projects</div>
+      <div class="interest-chip" data-value="projects"><span class="dot"></span> Projects</div>
     </div>
-    <button class="grad-btn btn-primary" id="registerBtn">Yi Register</button>
-    <div class="switch-mode">Ka riga ka da account? <a id="goLogin">Shiga</a></div>
+    <button class="grad-btn btn-primary" id="registerBtn">Sign Up</button>
+    <div class="switch-mode">Already have an account? <a id="goLogin">Sign In</a></div>
   </div>
 </div>
 
@@ -310,12 +310,12 @@
   <div class="sidebar-header">
     <div class="brand"><div class="logo-mini">ر</div> Rafiq</div>
   </div>
-  <button class="grad-btn" id="newChatBtn">+ Sabon Tattaunawa</button>
+  <button class="grad-btn" id="newChatBtn">+ New Chat</button>
   <div id="chatList"></div>
   <div class="sidebar-footer" id="openProfileBtn">
     <div class="avatar-circle" id="sidebarAvatar">?</div>
     <div class="info">
-      <div class="name" id="sidebarName">Mai amfani</div>
+      <div class="name" id="sidebarName">User</div>
       <div class="email" id="sidebarEmail">...</div>
     </div>
   </div>
@@ -335,7 +335,7 @@
     <form id="inputBar">
       <button type="button" id="fileBtn" class="icon-btn">📎</button>
       <button type="button" id="micBtn" class="icon-btn">🎤</button>
-      <textarea id="userInput" rows="1" placeholder="Rubuta saƙo…"></textarea>
+      <textarea id="userInput" rows="1" placeholder="Type a message…"></textarea>
       <button type="submit" id="sendBtn" class="icon-btn">➤</button>
     </form>
     <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" style="display:none;" />
@@ -352,7 +352,7 @@
     <div class="p-name" id="profileName">...</div>
     <div class="p-email" id="profileEmail">...</div>
     <div class="p-interests" id="profileInterests"></div>
-    <button id="logoutBtn">Fita (Logout)</button>
+    <button id="logoutBtn">Log Out</button>
   </div>
 </div>
 
@@ -523,10 +523,10 @@
   // ---------- PROFILE PANEL ----------
   const interestLabels = {
     addini_dawa: "Addini & Da'awa",
-    ilimi: "Neman Ilimi",
+    ilimi: "Learning & Education",
     coding: "Coding & Fasaha",
     kasuwanci: "Kasuwanci",
-    projects: "Ayyuka / Projects",
+    projects: "Projects",
   };
   el("openProfileBtn").addEventListener("click", async () => {
     closeSidebar();
