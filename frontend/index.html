@@ -2,7 +2,7 @@
 <html lang="ha">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
 <title>Rafiq — Abokin Hankalinka</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2563EB">
@@ -212,6 +212,7 @@
   }
   #sendBtn{background: linear-gradient(135deg, var(--accent1), var(--accent2)); color:white;}
   #micBtn, #fileBtn{background:var(--panel); color:var(--text); border:1px solid var(--border);}
+  #fileBtn{font-size:24px; font-weight:300;}
   #micBtn.listening{background:var(--danger); color:white;}
   .filePreview{
     display:none; align-items:center; gap:8px; padding:8px 12px; margin:0 12px 8px;
@@ -333,8 +334,8 @@
       <span class="remove" id="removeFile">✕</span>
     </div>
     <form id="inputBar">
-      <button type="button" id="fileBtn" class="icon-btn">📎</button>
-      <button type="button" id="micBtn" class="icon-btn">🎤</button>
+      <button type="button" id="fileBtn" class="icon-btn">+</button>
+      <button type="button" id="micBtn" class="icon-btn">🔊</button>
       <textarea id="userInput" rows="1" placeholder="Type a message…"></textarea>
       <button type="submit" id="sendBtn" class="icon-btn">➤</button>
     </form>
